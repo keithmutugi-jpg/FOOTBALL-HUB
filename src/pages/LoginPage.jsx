@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useGoogleLogin } from '@react-oauth/google'
 import { useAuth } from '../components/AuthProvider.jsx'
 
 function LoginPage() {
@@ -18,15 +19,14 @@ function LoginPage() {
   const handleSubmit = async (event) => {
     event.preventDefault()
     setLoading(true)
-
     const result = await login({ email, password })
     setLoading(false)
-
     if (result) {
       navigate('/dashboard', { replace: true })
     }
   }
 
+  // GitHub stays the same
   const handleSocial = async (provider) => {
     setLoading(true)
     const result = await socialLogin(provider)
@@ -36,21 +36,42 @@ function LoginPage() {
     }
   }
 
+  // Real Google login
+  const handleGoogle = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      setLoading(true)
+      const result = await socialLogin('google', tokenResponse.access_token)
+      setLoading(false)
+      if (result) navigate('/dashboard', { replace: true })
+    },
+    onError: () => {
+      setLoading(false)
+    },
+  })
+
   return (
     <div className="page-frame">
       <section className="section-card form-panel">
         <h1>Login to Football Hub</h1>
         <p>Sign in with a social provider or continue with your email address.</p>
-
         <div className="form-actions">
-          <button type="button" className="secondary-button" onClick={() => handleSocial('google')}>
+          <button
+            type="button"
+            className="secondary-button"
+            onClick={() => handleGoogle()}
+            disabled={loading}
+          >
             Continue with Google
           </button>
-          <button type="button" className="secondary-button" onClick={() => handleSocial('github')}>
+          <button
+            type="button"
+            className="secondary-button"
+            onClick={() => handleSocial('github')}
+            disabled={loading}
+          >
             Continue with GitHub
           </button>
         </div>
-
         <form className="form-grid" onSubmit={handleSubmit}>
           <label>
             Email address
@@ -76,7 +97,6 @@ function LoginPage() {
             {loading ? 'Signing in…' : 'Continue with email'}
           </button>
         </form>
-
         {error && <div className="notification">{error}</div>}
       </section>
     </div>

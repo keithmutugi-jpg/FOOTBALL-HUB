@@ -2823,5 +2823,17 @@
       "assists": 4
     }
   ],
-  "sessions": {}
+  "sessions": {
+    "sess_1779030027842_eii9znnjx5k": {
+      "user": {
+        "id": "user-keithmutugi64@gmail.com",
+        "name": "keithmutugi64",
+        "email": "keithmutugi64@gmail.com",
+        "provider": "local",
+        "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=256&q=80"
+      },
+      "favorites": [],
+      "createdAt": "2026-05-17T15:00:27.842Z"
+    }
+  }
 }

@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { readFile, writeFile } from 'fs/promises'
+import 'dotenv/config'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const dbPath = path.join(__dirname, 'data', 'db.json')
@@ -25,6 +26,7 @@ function sendJson(res, payload) {
   return res.json(payload)
 }
 
+// Only used for GitHub now — Google uses real token
 function buildUser(provider, email) {
   if (provider === 'github') {
     return {
@@ -34,14 +36,6 @@ function buildUser(provider, email) {
       provider: 'github',
       avatar: 'https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=256&q=80',
     }
-  }
-
-  return {
-    id: 'google-1',
-    name: 'Football Fan',
-    email: email || 'fan@google.com',
-    provider: 'google',
-    avatar: 'https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=256&q=80',
   }
 }
 
@@ -109,11 +103,41 @@ app.post('/api/auth/login', async (req, res) => {
 })
 
 app.post('/api/auth/social', async (req, res) => {
-  const { provider } = req.body
+  const { provider, token } = req.body
+
   if (!provider || !['github', 'google'].includes(provider)) {
     return res.status(400).json({ message: 'Invalid social provider.' })
   }
 
+  // Real Google login — fetch actual user info from Google
+  if (provider === 'google') {
+    try {
+      const googleRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+
+      if (!googleRes.ok) {
+        return res.status(401).json({ message: 'Invalid Google token.' })
+      }
+
+      const profile = await googleRes.json()
+
+      const user = {
+        id: `google-${profile.sub}`,
+        name: profile.name,
+        email: profile.email,
+        provider: 'google',
+        avatar: profile.picture,
+      }
+
+      const session = await saveSession(res, user)
+      return sendJson(res, { user: { ...session.user, favorites: session.favorites } })
+    } catch {
+      return res.status(500).json({ message: 'Google authentication failed.' })
+    }
+  }
+
+  // GitHub stays as mock for now
   const user = buildUser(provider)
   const session = await saveSession(res, user)
   return sendJson(res, { user: { ...session.user, favorites: session.favorites } })

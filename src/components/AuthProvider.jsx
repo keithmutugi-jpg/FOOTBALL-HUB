@@ -23,9 +23,9 @@ export function AuthProvider({ children }) {
     return data.user
   }
 
-  const socialLogin = async (provider) => {
+  const socialLogin = async (provider, token) => {
     setError(null)
-    const data = await api.post('/auth/social', { provider })
+    const data = await api.post('/auth/social', { provider, token })
     setUser(data.user)
     return data.user
   }
