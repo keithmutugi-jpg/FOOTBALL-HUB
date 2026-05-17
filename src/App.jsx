@@ -14,11 +14,9 @@ import './App.css'
 
 function ProtectedRoute({ children }) {
   const { user, ready } = useAuth()
-
   if (!ready) {
     return <div className="page-state">Checking your session...</div>
   }
-
   return user ? children : <Navigate to="/login" replace />
 }
 
@@ -58,8 +56,9 @@ function AppShell() {
 }
 
 export default function App() {
+  const basename = import.meta.env.PROD ? '/FOOTBALL-HUB' : '/'
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <AuthProvider>
         <AppShell />
       </AuthProvider>
