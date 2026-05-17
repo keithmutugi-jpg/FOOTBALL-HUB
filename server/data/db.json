@@ -1340,5 +1340,18 @@
       "summary": "Brentford compete in Premier League and are part of the Football Hub club directory.",
       "sortOrder": 8
     }
-  ]
+  ],
+  "sessions": {
+    "sess_1779034878353_ekvcbcxhah": {
+      "user": {
+        "id": "github-1",
+        "name": "Football Fan",
+        "email": "fan@github.com",
+        "provider": "github",
+        "avatar": "https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=256&q=80"
+      },
+      "favorites": [],
+      "createdAt": "2026-05-17T16:21:18.353Z"
+    }
+  }
 }
