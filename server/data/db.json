@@ -1482,6 +1482,7 @@
     "goals": 12,
     "assists": 15
   },
+ [
   {
     "id": "player-15",
     "name": "Son Heung-min",
@@ -1491,8 +1492,7 @@
     "position": "Forward",
     "goals": 19,
     "assists": 10
-  }
-][
+  },
   {
     "id": "player-16",
     "name": "Luka Modrić",
@@ -1512,27 +1512,31 @@
     "position": "Defensive Midfield",
     "goals": 9,
     "assists": 7
-  },
-  {
-    "id": "player-18",
-    "name": "Declan Rice",
-    "birthDate": "1999-01-14",
-    "club": "Arsenal",
-    "nationality": "England",
-    "position": "Midfield",
-    "goals": 7,
-    "assists": 8
-  },
-  {
-    "id": "player-19",
-    "name": "Martin Ødegaard",
-    "birthDate": "1998-12-17",
-    "club": "Arsenal",
-    "nationality": "Norway",
-    "position": "Attacking Midfield",
-    "goals": 14,
-    "assists": 10
-  },
+  }
+]
+ ,
+{
+  "id": "player-18",
+  "name": "Declan Rice",
+  "birthDate": "1999-01-14",
+  "club": "Arsenal",
+  "nationality": "England",
+  "position": "Midfield",
+  "goals": 7,
+  "assists": 8
+}
+  ,
+{
+  "id": "player-19",
+  "name": "Martin Ødegaard",
+  "birthDate": "1998-12-17",
+  "club": "Arsenal",
+  "nationality": "Norway",
+  "position": "Attacking Midfield",
+  "goals": 14,
+  "assists": 10
+}
+ ,
   {
     "id": "player-20",
     "name": "Rafael Leão",
