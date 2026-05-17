@@ -1,39 +1,52 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../components/AuthProvider'; // Adjust path if necessary
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../components/AuthProvider.jsx'
+import { useGoogleLogin } from '@react-oauth/google'
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const { login } = useAuth();
-  const navigate = useNavigate();
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const { user, login, socialLogin } = useAuth()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard', { replace: true })
+    }
+  }, [user, navigate])
 
   const handleEmailLogin = async (e) => {
-    e.preventDefault();
-    setError('');
+    e.preventDefault()
+    setError('')
 
     try {
-      // 1. Send authentication request to backend
-      const response = await fetch('http://localhost:3000/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.token) {
-        // 2. Pass data to AuthProvider and immediately route away
-        login(data.user, data.token);
-        navigate('/dashboard', { replace: true });
-      } else {
-        setError(data.message || 'Invalid login credentials');
-      }
+      await login({ email, password })
+      navigate('/dashboard', { replace: true })
     } catch (err) {
-      setError('Failed to connect to server');
+      setError(err.message || 'Invalid login credentials')
     }
-  };
+  }
+
+  const handleSocialLogin = async (provider, token) => {
+    setError('')
+
+    try {
+      await socialLogin(provider, token)
+      navigate('/dashboard', { replace: true })
+    } catch (err) {
+      setError(err.message || `Failed to sign in with ${provider}`)
+    }
+  }
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      await handleSocialLogin('google', tokenResponse.access_token)
+    },
+    onError: () => {
+      setError('Google sign in failed. Please try again.')
+    },
+  })
 
   return (
     <div style={{ backgroundColor: '#05140b', minHeight: '100vh', color: '#fff', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -42,8 +55,20 @@ export default function LoginPage() {
         <p style={{ color: '#88a090', marginBottom: '2rem' }}>Sign in with a social provider or continue with your email address.</p>
 
         <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem' }}>
-          <button type="button" style={{ flex: 1, padding: '0.75rem', background: '#143520', border: '1px solid #205032', color: '#fff', borderRadius: '6px', cursor: 'pointer' }}>Continue with Google</button>
-          <button type="button" style={{ flex: 1, padding: '0.75rem', background: '#143520', border: '1px solid #205032', color: '#fff', borderRadius: '6px', cursor: 'pointer' }}>Continue with GitHub</button>
+          <button
+            type="button"
+            onClick={() => googleLogin()}
+            style={{ flex: 1, padding: '0.75rem', background: '#4285F4', border: 'none', color: '#fff', borderRadius: '6px', cursor: 'pointer' }}
+          >
+            Continue with Google
+          </button>
+          <button
+            type="button"
+            onClick={() => handleSocialLogin('github')}
+            style={{ flex: 1, padding: '0.75rem', background: '#24292F', border: 'none', color: '#fff', borderRadius: '6px', cursor: 'pointer' }}
+          >
+            Continue with GitHub
+          </button>
         </div>
 
         {error && <p style={{ color: '#ff4d4d', fontSize: '0.9rem', marginBottom: '1rem' }}>{error}</p>}
