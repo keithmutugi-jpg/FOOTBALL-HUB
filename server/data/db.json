@@ -1341,6 +1341,58 @@
       "sortOrder": 8
     }
   ],
+  "players": [
+    {
+      "id": "player-1",
+      "name": "Erling Haaland",
+      "birthDate": "2000-07-21",
+      "club": "Manchester City",
+      "nationality": "Norway",
+      "position": "Striker",
+      "goals": 36,
+      "assists": 9
+    },
+    {
+      "id": "player-2",
+      "name": "Kevin De Bruyne",
+      "birthDate": "1991-06-28",
+      "club": "Manchester City",
+      "nationality": "Belgium",
+      "position": "Midfield",
+      "goals": 10,
+      "assists": 18
+    },
+    {
+      "id": "player-3",
+      "name": "Kylian Mbappé",
+      "birthDate": "1998-12-20",
+      "club": "Paris Saint-Germain",
+      "nationality": "France",
+      "position": "Forward",
+      "goals": 27,
+      "assists": 12
+    },
+    {
+      "id": "player-4",
+      "name": "Lionel Messi",
+      "birthDate": "1987-06-24",
+      "club": "Paris Saint-Germain",
+      "nationality": "Argentina",
+      "position": "Forward",
+      "goals": 18,
+      "assists": 10
+    },
+    {
+      "id": "player-5",
+      "name": "Phil Foden",
+      "birthDate": "2000-05-28",
+      "club": "Manchester City",
+      "nationality": "England",
+      "position": "Midfield",
+      "goals": 15,
+      "assists": 11
+    }
+  ],
   "sessions": {
     "sess_1779034878353_ekvcbcxhah": {
       "user": {

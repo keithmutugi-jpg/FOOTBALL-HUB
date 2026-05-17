@@ -174,7 +174,7 @@ app.get('/api/teams', async (req, res) => {
 
 app.get('/api/players', async (req, res) => {
   const db = await readDb()
-  return sendJson(res, { players: db.players })
+  return sendJson(res, { players: db.players || [] })
 })
 
 app.get('/api/favorites', async (req, res) => {
