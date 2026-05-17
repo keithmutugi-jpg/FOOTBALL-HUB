@@ -1,52 +1,40 @@
-import { createContext, useContext, useEffect, useState } from 'react'
-import api from '../api/client.js'
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
-const AuthContext = createContext(null)
+const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null)
-  const [ready, setReady] = useState(false)
-  const [error, setError] = useState(null)
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api
-      .get('/session')
-      .then((data) => setUser(data.user))
-      .catch(() => setUser(null))
-      .finally(() => setReady(true))
-  }, [])
+    // Initial check when app opens
+    const savedToken = localStorage.getItem('token');
+    const savedUser = localStorage.getItem('user');
+    if (savedToken && savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+    setLoading(false); // Done checking saved session
+  }, []);
 
-  const login = async (credentials) => {
-    setError(null)
-    const data = await api.post('/auth/login', credentials)
-    setUser(data.user)
-    return data.user
-  }
+  const login = (userData, token) => {
+    // Set items synchronously so state changes cleanly
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(userData));
+    setUser(userData); 
+    // DO NOT set loading to true here! Keep it false so the UI redirects instantly.
+  };
 
-  const socialLogin = async (provider, token) => {
-    setError(null)
-    const data = await api.post('/auth/social', { provider, token })
-    setUser(data.user)
-    return data.user
-  }
-
-  const logout = async () => {
-    await api.post('/auth/logout')
-    setUser(null)
-  }
+  const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setUser(null);
+  };
 
   return (
-    <AuthContext.Provider value={{ user, ready, error, login, socialLogin, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, logout }}>
       {children}
     </AuthContext.Provider>
-  )
+  );
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
-export function useAuth() {
-  const context = useContext(AuthContext)
-  if (!context) {
-    throw new Error('useAuth must be used within AuthProvider')
-  }
-  return context
-}
+export const useAuth = () => useContext(AuthContext);

@@ -1332,3 +1332,13 @@
     },
     {
       "id": "premier-league-brentford",
+      "name": "Brentford",
+      "shortName": "Brentford",
+      "league": "Premier League",
+      "stadium": "Gtech Community Stadium",
+      "founded": 1889,
+      "summary": "Brentford compete in Premier League and are part of the Football Hub club directory.",
+      "sortOrder": 8
+    }
+  ]
+}
