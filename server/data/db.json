@@ -1342,56 +1342,459 @@
     }
   ],
   "players": [
-    {
-      "id": "player-1",
-      "name": "Erling Haaland",
-      "birthDate": "2000-07-21",
-      "club": "Manchester City",
-      "nationality": "Norway",
-      "position": "Striker",
-      "goals": 36,
-      "assists": 9
-    },
-    {
-      "id": "player-2",
-      "name": "Kevin De Bruyne",
-      "birthDate": "1991-06-28",
-      "club": "Manchester City",
-      "nationality": "Belgium",
-      "position": "Midfield",
-      "goals": 10,
-      "assists": 18
-    },
-    {
-      "id": "player-3",
-      "name": "Kylian Mbappé",
-      "birthDate": "1998-12-20",
-      "club": "Paris Saint-Germain",
-      "nationality": "France",
-      "position": "Forward",
-      "goals": 27,
-      "assists": 12
-    },
-    {
-      "id": "player-4",
-      "name": "Lionel Messi",
-      "birthDate": "1987-06-24",
-      "club": "Paris Saint-Germain",
-      "nationality": "Argentina",
-      "position": "Forward",
-      "goals": 18,
-      "assists": 10
-    },
-    {
-      "id": "player-5",
-      "name": "Phil Foden",
-      "birthDate": "2000-05-28",
-      "club": "Manchester City",
-      "nationality": "England",
-      "position": "Midfield",
-      "goals": 15,
-      "assists": 11
-    }
+  {
+    "id": "player-1",
+    "name": "Erling Haaland",
+    "birthDate": "2000-07-21",
+    "club": "Manchester City",
+    "nationality": "Norway",
+    "position": "Striker",
+    "goals": 36,
+    "assists": 9
+  },
+  {
+    "id": "player-2",
+    "name": "Kevin De Bruyne",
+    "birthDate": "1991-06-28",
+    "club": "Manchester City",
+    "nationality": "Belgium",
+    "position": "Midfield",
+    "goals": 10,
+    "assists": 18
+  },
+  {
+    "id": "player-3",
+    "name": "Kylian Mbappé",
+    "birthDate": "1998-12-20",
+    "club": "Paris Saint-Germain",
+    "nationality": "France",
+    "position": "Forward",
+    "goals": 27,
+    "assists": 12
+  },
+  {
+    "id": "player-4",
+    "name": "Lionel Messi",
+    "birthDate": "1987-06-24",
+    "club": "Paris Saint-Germain",
+    "nationality": "Argentina",
+    "position": "Forward",
+    "goals": 18,
+    "assists": 10
+  },
+  {
+    "id": "player-5",
+    "name": "Phil Foden",
+    "birthDate": "2000-05-28",
+    "club": "Manchester City",
+    "nationality": "England",
+    "position": "Midfield",
+    "goals": 15,
+    "assists": 11
+  },
+  {
+    "id": "player-6",
+    "name": "Vinícius Júnior",
+    "birthDate": "2000-07-12",
+    "club": "Real Madrid",
+    "nationality": "Brazil",
+    "position": "Winger",
+    "goals": 21,
+    "assists": 14
+  },
+  {
+    "id": "player-7",
+    "name": "Jude Bellingham",
+    "birthDate": "2003-06-29",
+    "club": "Real Madrid",
+    "nationality": "England",
+    "position": "Midfield",
+    "goals": 19,
+    "assists": 8
+  },
+  {
+    "id": "player-8",
+    "name": "Bukayo Saka",
+    "birthDate": "2001-09-05",
+    "club": "Arsenal",
+    "nationality": "England",
+    "position": "Winger",
+    "goals": 16,
+    "assists": 13
+  },
+  {
+    "id": "player-9",
+    "name": "Mohamed Salah",
+    "birthDate": "1992-06-15",
+    "club": "Liverpool",
+    "nationality": "Egypt",
+    "position": "Forward",
+    "goals": 24,
+    "assists": 11
+  },
+  {
+    "id": "player-10",
+    "name": "Harry Kane",
+    "birthDate": "1993-07-28",
+    "club": "Bayern Munich",
+    "nationality": "England",
+    "position": "Striker",
+    "goals": 32,
+    "assists": 7
+  },
+  {
+    "id": "player-11",
+    "name": "Pedri",
+    "birthDate": "2002-11-25",
+    "club": "Barcelona",
+    "nationality": "Spain",
+    "position": "Midfield",
+    "goals": 8,
+    "assists": 9
+  },
+  {
+    "id": "player-12",
+    "name": "Robert Lewandowski",
+    "birthDate": "1988-08-21",
+    "club": "Barcelona",
+    "nationality": "Poland",
+    "position": "Striker",
+    "goals": 26,
+    "assists": 5
+  },
+  {
+    "id": "player-13",
+    "name": "Victor Osimhen",
+    "birthDate": "1998-12-29",
+    "club": "Napoli",
+    "nationality": "Nigeria",
+    "position": "Striker",
+    "goals": 23,
+    "assists": 4
+  },
+  {
+    "id": "player-14",
+    "name": "Bruno Fernandes",
+    "birthDate": "1994-09-08",
+    "club": "Manchester United",
+    "nationality": "Portugal",
+    "position": "Midfield",
+    "goals": 12,
+    "assists": 15
+  },
+  {
+    "id": "player-15",
+    "name": "Son Heung-min",
+    "birthDate": "1992-07-08",
+    "club": "Tottenham Hotspur",
+    "nationality": "South Korea",
+    "position": "Forward",
+    "goals": 19,
+    "assists": 10
+  }
+][
+  {
+    "id": "player-16",
+    "name": "Luka Modrić",
+    "birthDate": "1985-09-09",
+    "club": "Real Madrid",
+    "nationality": "Croatia",
+    "position": "Midfield",
+    "goals": 6,
+    "assists": 12
+  },
+  {
+    "id": "player-17",
+    "name": "Rodri",
+    "birthDate": "1996-06-22",
+    "club": "Manchester City",
+    "nationality": "Spain",
+    "position": "Defensive Midfield",
+    "goals": 9,
+    "assists": 7
+  },
+  {
+    "id": "player-18",
+    "name": "Declan Rice",
+    "birthDate": "1999-01-14",
+    "club": "Arsenal",
+    "nationality": "England",
+    "position": "Midfield",
+    "goals": 7,
+    "assists": 8
+  },
+  {
+    "id": "player-19",
+    "name": "Martin Ødegaard",
+    "birthDate": "1998-12-17",
+    "club": "Arsenal",
+    "nationality": "Norway",
+    "position": "Attacking Midfield",
+    "goals": 14,
+    "assists": 10
+  },
+  {
+    "id": "player-20",
+    "name": "Rafael Leão",
+    "birthDate": "1999-06-10",
+    "club": "AC Milan",
+    "nationality": "Portugal",
+    "position": "Winger",
+    "goals": 17,
+    "assists": 13
+  },
+  {
+    "id": "player-21",
+    "name": "Lautaro Martínez",
+    "birthDate": "1997-08-22",
+    "club": "Inter Milan",
+    "nationality": "Argentina",
+    "position": "Striker",
+    "goals": 28,
+    "assists": 6
+  },
+  {
+    "id": "player-22",
+    "name": "Jamal Musiala",
+    "birthDate": "2003-02-26",
+    "club": "Bayern Munich",
+    "nationality": "Germany",
+    "position": "Attacking Midfield",
+    "goals": 13,
+    "assists": 11
+  },
+  {
+    "id": "player-23",
+    "name": "Alphonso Davies",
+    "birthDate": "2000-11-02",
+    "club": "Bayern Munich",
+    "nationality": "Canada",
+    "position": "Left Back",
+    "goals": 4,
+    "assists": 9
+  },
+  {
+    "id": "player-24",
+    "name": "Khvicha Kvaratskhelia",
+    "birthDate": "2001-02-12",
+    "club": "Napoli",
+    "nationality": "Georgia",
+    "position": "Winger",
+    "goals": 15,
+    "assists": 14
+  },
+  {
+    "id": "player-25",
+    "name": "João Félix",
+    "birthDate": "1999-11-10",
+    "club": "Barcelona",
+    "nationality": "Portugal",
+    "position": "Forward",
+    "goals": 11,
+    "assists": 7
+  },
+  {
+    "id": "player-26",
+    "name": "Bernardo Silva",
+    "birthDate": "1994-08-10",
+    "club": "Manchester City",
+    "nationality": "Portugal",
+    "position": "Midfield",
+    "goals": 8,
+    "assists": 12
+  },
+  {
+    "id": "player-27",
+    "name": "Antoine Griezmann",
+    "birthDate": "1991-03-21",
+    "club": "Atlético Madrid",
+    "nationality": "France",
+    "position": "Forward",
+    "goals": 20,
+    "assists": 9
+  },
+  {
+    "id": "player-28",
+    "name": "Achraf Hakimi",
+    "birthDate": "1998-11-04",
+    "club": "Paris Saint-Germain",
+    "nationality": "Morocco",
+    "position": "Right Back",
+    "goals": 5,
+    "assists": 10
+  },
+  {
+    "id": "player-29",
+    "name": "Marcus Rashford",
+    "birthDate": "1997-10-31",
+    "club": "Manchester United",
+    "nationality": "England",
+    "position": "Forward",
+    "goals": 18,
+    "assists": 6
+  },
+  {
+    "id": "player-30",
+    "name": "Cole Palmer",
+    "birthDate": "2002-05-06",
+    "club": "Chelsea",
+    "nationality": "England",
+    "position": "Attacking Midfield",
+    "goals": 22,
+    "assists": 13
+  }
+][
+  {
+    "id": "player-31",
+    "name": "Cristiano Ronaldo",
+    "birthDate": "1985-02-05",
+    "club": "Al Nassr",
+    "nationality": "Portugal",
+    "position": "Forward",
+    "goals": 31,
+    "assists": 8
+  },
+  {
+    "id": "player-32",
+    "name": "Neymar Jr",
+    "birthDate": "1992-02-05",
+    "club": "Al Hilal",
+    "nationality": "Brazil",
+    "position": "Forward",
+    "goals": 14,
+    "assists": 11
+  },
+  {
+    "id": "player-33",
+    "name": "Virgil van Dijk",
+    "birthDate": "1991-07-08",
+    "club": "Liverpool",
+    "nationality": "Netherlands",
+    "position": "Center Back",
+    "goals": 5,
+    "assists": 2
+  },
+  {
+    "id": "player-34",
+    "name": "Trent Alexander-Arnold",
+    "birthDate": "1998-10-07",
+    "club": "Liverpool",
+    "nationality": "England",
+    "position": "Right Back",
+    "goals": 4,
+    "assists": 15
+  },
+  {
+    "id": "player-35",
+    "name": "Enzo Fernández",
+    "birthDate": "2001-01-17",
+    "club": "Chelsea",
+    "nationality": "Argentina",
+    "position": "Midfield",
+    "goals": 6,
+    "assists": 9
+  },
+  {
+    "id": "player-36",
+    "name": "Mason Mount",
+    "birthDate": "1999-01-10",
+    "club": "Manchester United",
+    "nationality": "England",
+    "position": "Midfield",
+    "goals": 7,
+    "assists": 5
+  },
+  {
+    "id": "player-37",
+    "name": "Rúben Dias",
+    "birthDate": "1997-05-14",
+    "club": "Manchester City",
+    "nationality": "Portugal",
+    "position": "Center Back",
+    "goals": 3,
+    "assists": 1
+  },
+  {
+    "id": "player-38",
+    "name": "Gavi",
+    "birthDate": "2004-08-05",
+    "club": "Barcelona",
+    "nationality": "Spain",
+    "position": "Midfield",
+    "goals": 5,
+    "assists": 8
+  },
+  {
+    "id": "player-39",
+    "name": "Federico Valverde",
+    "birthDate": "1998-07-22",
+    "club": "Real Madrid",
+    "nationality": "Uruguay",
+    "position": "Midfield",
+    "goals": 11,
+    "assists": 7
+  },
+  {
+    "id": "player-40",
+    "name": "Gabriel Martinelli",
+    "birthDate": "2001-06-18",
+    "club": "Arsenal",
+    "nationality": "Brazil",
+    "position": "Winger",
+    "goals": 14,
+    "assists": 6
+  },
+  {
+    "id": "player-41",
+    "name": "Sadio Mané",
+    "birthDate": "1992-04-10",
+    "club": "Al Nassr",
+    "nationality": "Senegal",
+    "position": "Forward",
+    "goals": 17,
+    "assists": 9
+  },
+  {
+    "id": "player-42",
+    "name": "Victor Boniface",
+    "birthDate": "2000-12-23",
+    "club": "Bayer Leverkusen",
+    "nationality": "Nigeria",
+    "position": "Striker",
+    "goals": 21,
+    "assists": 8
+  },
+  {
+    "id": "player-43",
+    "name": "Florian Wirtz",
+    "birthDate": "2003-05-03",
+    "club": "Bayer Leverkusen",
+    "nationality": "Germany",
+    "position": "Attacking Midfield",
+    "goals": 12,
+    "assists": 16
+  },
+  {
+    "id": "player-44",
+    "name": "Ousmane Dembélé",
+    "birthDate": "1997-05-15",
+    "club": "Paris Saint-Germain",
+    "nationality": "France",
+    "position": "Winger",
+    "goals": 10,
+    "assists": 14
+  },
+  {
+    "id": "player-45",
+    "name": "Julián Álvarez",
+    "birthDate": "2000-01-31",
+    "club": "Manchester City",
+    "nationality": "Argentina",
+    "position": "Forward",
+    "goals": 17,
+    "assists": 9
+  }
+]
   ],
   "sessions": {
     "sess_1779034878353_ekvcbcxhah": {
