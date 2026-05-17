@@ -1647,7 +1647,7 @@
     "goals": 22,
     "assists": 13
   }
-][
+,
   {
     "id": "player-31",
     "name": "Cristiano Ronaldo",
@@ -1657,7 +1657,8 @@
     "position": "Forward",
     "goals": 31,
     "assists": 8
-  },
+  }
+    ,
   {
     "id": "player-32",
     "name": "Neymar Jr",
@@ -1799,7 +1800,7 @@
     "assists": 9
   }
 ]
-  ],
+  ,
   "sessions": {
     "sess_1779034878353_ekvcbcxhah": {
       "user": {
