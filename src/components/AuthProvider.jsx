@@ -1,34 +1,51 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react'
+import api from '../api/client.js'
 
-const AuthContext = createContext(null);
+const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null)
+  const [ready, setReady] = useState(false)
 
   useEffect(() => {
-    // Initial check when app opens
-    const savedToken = localStorage.getItem('token');
-    const savedUser = localStorage.getItem('user');
-    if (savedToken && savedUser) {
-      setUser(JSON.parse(savedUser));
+    let active = true
+
+    api
+      .get('/session')
+      .then((data) => {
+        if (!active) return
+        setUser(data.user || null)
+      })
+      .catch(() => {
+        if (!active) return
+        setUser(null)
+      })
+      .finally(() => {
+        if (!active) return
+        setReady(true)
+      })
+
+    return () => {
+      active = false
     }
-    setLoading(false); // Done checking saved session
-  }, []);
+  }, [])
 
-  const login = (userData, token) => {
-    // Set items synchronously so state changes cleanly
-    localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(userData));
-    setUser(userData); 
-    // DO NOT set loading to true here! Keep it false so the UI redirects instantly.
-  };
+  const login = async ({ email, password }) => {
+    const data = await api.post('/auth/login', { email, password })
+    setUser(data.user)
+    return data.user
+  }
 
-  const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    setUser(null);
-  };
+  const socialLogin = async (provider, token) => {
+    const data = await api.post('/auth/social', { provider, token })
+    setUser(data.user)
+    return data.user
+  }
+
+  const logout = async () => {
+    await api.post('/auth/logout')
+    setUser(null)
+  }
 
   return (
     <AuthContext.Provider value={{ user, loading, login, logout }}>
