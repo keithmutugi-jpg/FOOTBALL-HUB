@@ -29,7 +29,7 @@ function DashboardPage() {
         setTeams(teamsData)
         setMatches(matchesData)
         setFavorites(favoritesData.favorites || [])
-      } catch (err) {
+      } catch {
         setError('Unable to load dashboard data. Start the API server and try again.')
       } finally {
         setLoading(false)
@@ -125,10 +125,10 @@ function DashboardPage() {
                 <strong>{match.home}</strong>
                 <span className="match-status">{match.venue}</span>
               </div>
-            <div className="score-block">
-              <strong>{match.score}</strong>
-              <span className={getStatusClass(match.status)}>{match.status}</span>
-            </div>
+              <div className="score-block">
+                <strong>{match.score}</strong>
+                <span className={getStatusClass(match.status)}>{match.status}</span>
+              </div>
               <div>
                 <strong>{match.away}</strong>
                 <span className="match-status">{match.league}</span>

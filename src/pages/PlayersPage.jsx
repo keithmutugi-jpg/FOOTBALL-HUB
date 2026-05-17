@@ -19,19 +19,22 @@ function getAge(birthDate) {
 function PlayersPage() {
   const [players, setPlayers] = useState([])
   const [query, setQuery] = useState('')
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    api.get('/players').then((data) => setPlayers(data.players || []))
+    api.get('/players').then((data) => setPlayers(data.players || [])).finally(() => setLoading(false))
   }, [])
 
   const filteredPlayers = useMemo(() => {
     const value = query.trim().toLowerCase()
-    if (!value) return players
-    return players.filter((player) =>
-      [player.name, player.club, player.position, player.nationality, String(getAge(player.birthDate))].some((field) =>
-        String(field || '').toLowerCase().includes(value),
-      ),
-    )
+    const list = value
+      ? players.filter((player) =>
+          [player.name, player.club, player.position, player.nationality, String(getAge(player.birthDate))].some((field) =>
+            String(field || '').toLowerCase().includes(value),
+          ),
+        )
+      : players
+    return [...list].sort((a, b) => (b.goals ?? 0) - (a.goals ?? 0))
   }, [players, query])
 
   return (
@@ -56,38 +59,44 @@ function PlayersPage() {
       </section>
 
       <section className="summary-grid">
-        {filteredPlayers.map((player) => (
-          <article className="summary-item" key={player.id}>
-            <p className="eyebrow">{player.position}</p>
-            <h2>{player.name}</h2>
-            <dl className="stats-list">
-              <div>
-                <dt>Club</dt>
-                <dd>{player.club}</dd>
-              </div>
-              <div>
-                <dt>Age</dt>
-                <dd>{getAge(player.birthDate)}</dd>
-              </div>
-              <div>
-                <dt>Nationality</dt>
-                <dd>{player.nationality}</dd>
-              </div>
-              <div>
-                <dt>Position</dt>
-                <dd>{player.position}</dd>
-              </div>
-              <div>
-                <dt>Goals</dt>
-                <dd>{player.goals}</dd>
-              </div>
-              <div>
-                <dt>Assists</dt>
-                <dd>{player.assists}</dd>
-              </div>
-            </dl>
-          </article>
-        ))}
+        {loading ? (
+          <p className="status-message">Loading players…</p>
+        ) : filteredPlayers.length === 0 ? (
+          <div className="empty-state">No players matched your search.</div>
+        ) : (
+          filteredPlayers.map((player) => (
+            <article className="summary-item" key={player.id}>
+              <p className="eyebrow">{player.position}</p>
+              <h2>{player.name}</h2>
+              <dl className="stats-list">
+                <div>
+                  <dt>Club</dt>
+                  <dd>{player.club}</dd>
+                </div>
+                <div>
+                  <dt>Age</dt>
+                  <dd>{getAge(player.birthDate)}</dd>
+                </div>
+                <div>
+                  <dt>Nationality</dt>
+                  <dd>{player.nationality}</dd>
+                </div>
+                <div>
+                  <dt>Position</dt>
+                  <dd>{player.position}</dd>
+                </div>
+                <div>
+                  <dt>Goals</dt>
+                  <dd>{player.goals}</dd>
+                </div>
+                <div>
+                  <dt>Assists</dt>
+                  <dd>{player.assists}</dd>
+                </div>
+              </dl>
+            </article>
+          ))
+        )}
       </section>
     </div>
   )

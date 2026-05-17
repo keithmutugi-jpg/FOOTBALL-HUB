@@ -6,6 +6,7 @@ function LoginPage() {
   const { user, login, socialLogin, error } = useAuth()
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -18,7 +19,7 @@ function LoginPage() {
     event.preventDefault()
     setLoading(true)
 
-    const result = await login({ email, password: 'password' })
+    const result = await login({ email, password })
     setLoading(false)
 
     if (result) {
@@ -58,6 +59,16 @@ function LoginPage() {
               placeholder="you@example.com"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
+              required
+            />
+          </label>
+          <label>
+            Password
+            <input
+              type="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
               required
             />
           </label>

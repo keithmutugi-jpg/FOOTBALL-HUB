@@ -68,23 +68,27 @@ function MatchesPage() {
         {loading ? (
           <p className="status-message">Loading matches...</p>
         ) : (
-          <div className="match-list">
-            {visibleMatches.map((match) => (
-              <article className="match-item" key={match.id}>
-                <div>
-                  <strong>{match.home}</strong>
-                  <span className="match-status">{match.venue}</span>
-                </div>
-                <div className="score-block">
-                  <strong>{match.score}</strong>
-                  <span className={getStatusClass(match.status)}>{match.status} · {match.time}</span>
-                </div>
-                <div>
-                  <strong>{match.away}</strong>
-                  <span className="match-status">{match.league}</span>
-                </div>
-              </article>
-            ))}
+        <div className="match-list">
+            {visibleMatches.length === 0 ? (
+              <div className="empty-state">No matches found for the selected filters.</div>
+            ) : (
+              visibleMatches.map((match) => (
+                <article className="match-item" key={match.id}>
+                  <div>
+                    <strong>{match.home}</strong>
+                    <span className="match-status">{match.venue}</span>
+                  </div>
+                  <div className="score-block">
+                    <strong>{match.score}</strong>
+                    <span className={getStatusClass(match.status)}>{match.status} · {match.time}</span>
+                  </div>
+                  <div>
+                    <strong>{match.away}</strong>
+                    <span className="match-status">{match.league}</span>
+                  </div>
+                </article>
+              ))
+            )}
           </div>
         )}
       </section>

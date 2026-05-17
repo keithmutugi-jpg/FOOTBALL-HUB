@@ -57,6 +57,19 @@
   justify-content: center;
 }
 
+.nav-hamburger {
+  display: none;
+  background: transparent;
+  color: var(--text);
+  padding: 6px;
+  border-radius: var(--radius);
+  margin-left: auto;
+}
+
+.nav-hamburger:hover {
+  background: var(--surface-strong);
+}
+
 .nav-link,
 .nav-button {
   color: var(--text);
@@ -456,6 +469,14 @@ input:focus {
   text-align: center;
 }
 
+.row-champions td:first-child {
+  border-left: 3px solid var(--accent);
+}
+
+.row-relegation td:first-child {
+  border-left: 3px solid var(--live);
+}
+
 @media (max-width: 920px) {
   .nav-bar,
   .hero-panel,
@@ -465,12 +486,26 @@ input:focus {
 
   .nav-bar {
     align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .nav-hamburger {
+    display: flex;
   }
 
   .nav-links {
+    display: none;
     order: 3;
     width: 100%;
     justify-content: flex-start;
+  }
+
+  .nav-links.nav-links-open {
+    display: flex;
+  }
+
+  .nav-actions {
+    margin-left: auto;
   }
 
   .summary-grid {

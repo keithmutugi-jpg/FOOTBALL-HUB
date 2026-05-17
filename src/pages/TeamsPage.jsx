@@ -5,9 +5,10 @@ function TeamsPage() {
   const [teams, setTeams] = useState([])
   const [query, setQuery] = useState('')
   const [leagueFilter, setLeagueFilter] = useState('all')
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    api.get('/teams').then(setTeams)
+    api.get('/teams').then(setTeams).finally(() => setLoading(false))
   }, [])
 
   const filteredTeams = useMemo(() => {
@@ -61,23 +62,29 @@ function TeamsPage() {
       </div>
 
       <section className="summary-grid">
-        {filteredTeams.map((team) => (
-          <article className="summary-item" key={team.id}>
-            <p className="eyebrow">{team.league}</p>
-            <h2>{team.name}</h2>
-            <p>{team.summary}</p>
-            <dl className="stats-list">
-              <div>
-                <dt>Stadium</dt>
-                <dd>{team.stadium}</dd>
-              </div>
-              <div>
-                <dt>Founded</dt>
-                <dd>{team.founded}</dd>
-              </div>
-            </dl>
-          </article>
-        ))}
+        {loading ? (
+          <p className="status-message">Loading teams…</p>
+        ) : filteredTeams.length === 0 ? (
+          <div className="empty-state">No teams matched your search.</div>
+        ) : (
+          filteredTeams.map((team) => (
+            <article className="summary-item" key={team.id}>
+              <p className="eyebrow">{team.league}</p>
+              <h2>{team.name}</h2>
+              <p>{team.summary}</p>
+              <dl className="stats-list">
+                <div>
+                  <dt>Stadium</dt>
+                  <dd>{team.stadium}</dd>
+                </div>
+                <div>
+                  <dt>Founded</dt>
+                  <dd>{team.founded}</dd>
+                </div>
+              </dl>
+            </article>
+          ))
+        )}
       </section>
     </div>
   )

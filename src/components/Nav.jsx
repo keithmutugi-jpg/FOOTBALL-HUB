@@ -1,39 +1,33 @@
+import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { LogIn, LogOut } from 'lucide-react'
+import { LogIn, LogOut, Menu, X } from 'lucide-react'
 import { useAuth } from './AuthProvider.jsx'
 
 function Nav() {
   const { user, logout } = useAuth()
+  const [open, setOpen] = useState(false)
 
   return (
     <nav className="nav-bar">
       <div className="nav-brand">
-        <Link to="/" className="nav-link">
+        <Link to="/" className="nav-link" onClick={() => setOpen(false)}>
           <span>Football Hub</span>
         </Link>
       </div>
-      <div className="nav-links">
-        <NavLink to="/" className="nav-link">
-          Home
-        </NavLink>
-        <NavLink to="/matches" className="nav-link">
-          Matches
-        </NavLink>
-        <NavLink to="/teams" className="nav-link">
-          Teams
-        </NavLink>
-        <NavLink to="/standings" className="nav-link">
-          Standings
-        </NavLink>
-        <NavLink to="/players" className="nav-link">
-          Players
-        </NavLink>
-        <NavLink to="/dashboard" className="nav-link">
-          Dashboard
-        </NavLink>
-        <NavLink to="/profile" className="nav-link">
-          Profile
-        </NavLink>
+      <button
+        type="button"
+        className="nav-hamburger"
+        aria-label={open ? 'Close menu' : 'Open menu'}
+        onClick={() => setOpen((v) => !v)}
+      >
+        {open ? <X size={20} /> : <Menu size={20} />}
+      </button>
+      <div className={`nav-links${open ? ' nav-links-open' : ''}`}>
+        {[['/', 'Home'], ['/matches', 'Matches'], ['/teams', 'Teams'], ['/standings', 'Standings'], ['/players', 'Players'], ['/dashboard', 'Dashboard'], ['/profile', 'Profile']].map(([to, label]) => (
+          <NavLink key={to} to={to} end={to === '/'} className="nav-link" onClick={() => setOpen(false)}>
+            {label}
+          </NavLink>
+        ))}
       </div>
       <div className="nav-actions">
         {user ? (
@@ -42,7 +36,7 @@ function Nav() {
             Sign out
           </button>
         ) : (
-          <Link to="/login" className="nav-button">
+          <Link to="/login" className="nav-button" onClick={() => setOpen(false)}>
             <LogIn size={16} />
             Login
           </Link>

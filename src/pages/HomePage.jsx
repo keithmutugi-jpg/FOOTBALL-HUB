@@ -66,12 +66,12 @@ function HomePage() {
             <span className="pill">Server persistence</span>
           </div>
           <div className="action-row">
-            <a href="/login" className="primary-button">
-              Sign in to personalize
-            </a>
-            <a href="/dashboard" className="outline-button">
-              View dashboard
-            </a>
+            {user ? (
+              <a href="/dashboard" className="primary-button">Go to dashboard</a>
+            ) : (
+              <a href="/login" className="primary-button">Sign in to personalize</a>
+            )}
+            <a href="/matches" className="outline-button">View all matches</a>
           </div>
         </div>
         <div className="feature-panel">
@@ -147,6 +147,7 @@ function HomePage() {
                 <th>Pos</th>
                 <th>Team</th>
                 <th>Pts</th>
+                <th>Played</th>
               </tr>
             </thead>
             <tbody>
@@ -154,7 +155,8 @@ function HomePage() {
                 <tr className="standings-row" key={row.id}>
                   <td>{row.position}</td>
                   <td>{row.team} · {row.league}</td>
-                  <td>{row.points}</td>
+                  <td><strong>{row.points}</strong></td>
+                  <td>{row.played}</td>
                 </tr>
               ))}
             </tbody>
