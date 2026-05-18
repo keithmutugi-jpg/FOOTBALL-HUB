@@ -11,9 +11,7 @@ function LoginPage() {
   const [localError, setLocalError] = useState('')
 
   useEffect(() => {
-    if (user) {
-      navigate('/dashboard', { replace: true })
-    }
+    if (user) navigate('/dashboard', { replace: true })
   }, [user, navigate])
 
   const handleSubmit = async (event) => {
@@ -49,8 +47,14 @@ function LoginPage() {
         <h1>Login to Football Hub</h1>
         <p>Sign in with a social provider or continue with your email address.</p>
 
-       
-       
+        <div className="form-actions">
+          <button type="button" className="secondary-button" disabled={loading} onClick={() => handleSocial('google')}>
+            {loading ? 'Signing in…' : 'Continue with Google'}
+          </button>
+          <button type="button" className="secondary-button" disabled={loading} onClick={() => handleSocial('github')}>
+            {loading ? 'Signing in…' : 'Continue with GitHub'}
+          </button>
+        </div>
 
         <form className="form-grid" onSubmit={handleSubmit}>
           <label>

@@ -46,6 +46,13 @@ function buildUser(provider, email) {
       avatar: 'https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=256&q=80',
     }
   }
+  return {
+    id: 'google-1',
+    name: 'Football Fan',
+    email: email || 'fan@google.com',
+    provider: 'google',
+    avatar: 'https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=256&q=80',
+  }
 }
 
 async function getSession(req) {
@@ -68,11 +75,12 @@ async function saveSession(res, user) {
   db.sessions = db.sessions || {}
   db.sessions[token] = session
   await writeDb(db)
+  const isProd = process.env.NODE_ENV === 'production'
   res.cookie('session_token', token, {
     httpOnly: true,
     maxAge: 1000 * 60 * 60 * 24,
-    sameSite: 'none',
-    secure: true,
+    sameSite: isProd ? 'none' : 'lax',
+    secure: isProd,
   })
   return session
 }
@@ -109,33 +117,10 @@ app.post('/api/auth/login', async (req, res) => {
 })
 
 app.post('/api/auth/social', async (req, res) => {
-  const { provider, token } = req.body
+  const { provider } = req.body
 
   if (!provider || !['github', 'google'].includes(provider)) {
     return res.status(400).json({ message: 'Invalid social provider.' })
-  }
-
-  if (provider === 'google') {
-    try {
-      const googleRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      if (!googleRes.ok) {
-        return res.status(401).json({ message: 'Invalid Google token.' })
-      }
-      const profile = await googleRes.json()
-      const user = {
-        id: `google-${profile.sub}`,
-        name: profile.name,
-        email: profile.email,
-        provider: 'google',
-        avatar: profile.picture,
-      }
-      const session = await saveSession(res, user)
-      return sendJson(res, { user: { ...session.user, favorites: session.favorites } })
-    } catch {
-      return res.status(500).json({ message: 'Google authentication failed.' })
-    }
   }
 
   const user = buildUser(provider)
