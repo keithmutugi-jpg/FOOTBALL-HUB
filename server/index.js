@@ -1,5 +1,6 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
+import cors from 'cors'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { readFile, writeFile } from 'fs/promises'
@@ -10,6 +11,15 @@ const dbPath = path.join(__dirname, 'data', 'db.json')
 const app = express()
 const port = process.env.PORT || 3000
 
+app.use(cors({
+  origin: [
+    'https://keithmutugi-jpg.github.io',
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'http://localhost:5175',
+  ],
+  credentials: true,
+}))
 app.use(cookieParser())
 app.use(express.json())
 
@@ -26,7 +36,6 @@ function sendJson(res, payload) {
   return res.json(payload)
 }
 
-// Only used for GitHub now — Google uses real token
 function buildUser(provider, email) {
   if (provider === 'github') {
     return {
@@ -44,7 +53,6 @@ async function getSession(req) {
   if (!token) {
     return null
   }
-
   const db = await readDb()
   return db.sessions?.[token] || null
 }
@@ -57,14 +65,14 @@ async function saveSession(res, user) {
     favorites: user.favorites || [],
     createdAt: new Date().toISOString(),
   }
-
   db.sessions = db.sessions || {}
   db.sessions[token] = session
   await writeDb(db)
   res.cookie('session_token', token, {
     httpOnly: true,
     maxAge: 1000 * 60 * 60 * 24,
-    sameSite: 'lax',
+    sameSite: 'none',
+    secure: true,
   })
   return session
 }
@@ -89,7 +97,6 @@ app.post('/api/auth/login', async (req, res) => {
   if (!email || !password) {
     return res.status(400).json({ message: 'Email and password are required.' })
   }
-
   const user = {
     id: `user-${email}`,
     name: email.split('@')[0],
@@ -97,7 +104,6 @@ app.post('/api/auth/login', async (req, res) => {
     provider: 'local',
     avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=256&q=80',
   }
-
   const session = await saveSession(res, user)
   return sendJson(res, { user: { ...session.user, favorites: session.favorites } })
 })
@@ -109,19 +115,15 @@ app.post('/api/auth/social', async (req, res) => {
     return res.status(400).json({ message: 'Invalid social provider.' })
   }
 
-  // Real Google login — fetch actual user info from Google
   if (provider === 'google') {
     try {
       const googleRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
         headers: { Authorization: `Bearer ${token}` },
       })
-
       if (!googleRes.ok) {
         return res.status(401).json({ message: 'Invalid Google token.' })
       }
-
       const profile = await googleRes.json()
-
       const user = {
         id: `google-${profile.sub}`,
         name: profile.name,
@@ -129,7 +131,6 @@ app.post('/api/auth/social', async (req, res) => {
         provider: 'google',
         avatar: profile.picture,
       }
-
       const session = await saveSession(res, user)
       return sendJson(res, { user: { ...session.user, favorites: session.favorites } })
     } catch {
@@ -137,7 +138,6 @@ app.post('/api/auth/social', async (req, res) => {
     }
   }
 
-  // GitHub stays as mock for now
   const user = buildUser(provider)
   const session = await saveSession(res, user)
   return sendJson(res, { user: { ...session.user, favorites: session.favorites } })
@@ -150,7 +150,6 @@ app.post('/api/auth/logout', async (req, res) => {
     delete db.sessions?.[token]
     await writeDb(db)
   }
-
   res.clearCookie('session_token')
   return sendJson(res, { success: true })
 })
@@ -174,7 +173,7 @@ app.get('/api/teams', async (req, res) => {
 
 app.get('/api/players', async (req, res) => {
   const db = await readDb()
-  return sendJson(res, { players: db.players || [] })
+  return sendJson(res, { players: db.players })
 })
 
 app.get('/api/favorites', async (req, res) => {
@@ -182,7 +181,6 @@ app.get('/api/favorites', async (req, res) => {
   if (!session) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
-
   const db = await readDb()
   const favorites = session.favorites.map((id) => db.teams.find((team) => team.id === id)).filter(Boolean)
   return sendJson(res, { favorites })
@@ -193,24 +191,20 @@ app.patch('/api/favorites', async (req, res) => {
   if (!teamId) {
     return res.status(400).json({ message: 'Team id required.' })
   }
-
   const token = req.cookies.session_token
   const db = await readDb()
   const session = db.sessions?.[token]
   if (!session) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
-
   const existing = session.favorites || []
   if (existing.includes(teamId)) {
     session.favorites = existing.filter((id) => id !== teamId)
   } else {
     session.favorites = [...existing, teamId]
   }
-
   db.sessions[token] = session
   await writeDb(db)
-
   const favorites = session.favorites.map((id) => db.teams.find((team) => team.id === id)).filter(Boolean)
   return sendJson(res, { favorites })
 })
