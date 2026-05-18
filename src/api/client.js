@@ -1,4 +1,4 @@
-const BASE_URL = 'https://football-hub-iovq.onrender.com/api'
+const BASE_URL = import.meta.env.VITE_API_URL || '/api'
 
 async function request(path, options = {}) {
   const response = await fetch(`${BASE_URL}${path}`, {

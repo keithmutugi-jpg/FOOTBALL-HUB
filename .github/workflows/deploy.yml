@@ -27,7 +27,7 @@ jobs:
       - name: Build app
         run: npm run build
         env:
-          VITE_GOOGLE_CLIENT_ID: ${{ secrets.VITE_GOOGLE_CLIENT_ID }}
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
           VITE_BASE_URL: /FOOTBALL-HUB/
 
       - name: Deploy to GitHub Pages

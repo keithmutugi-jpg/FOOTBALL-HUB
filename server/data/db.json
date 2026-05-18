@@ -1796,17 +1796,6 @@
     }
   ],
   "sessions": {
-    "sess_1779080357063_2346xlex4ggh": {
-      "user": {
-        "id": "github-1",
-        "name": "Football Fan",
-        "email": "fan@github.com",
-        "provider": "github",
-        "avatar": "https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=256&q=80"
-      },
-      "favorites": [],
-      "createdAt": "2026-05-18T04:59:17.063Z"
-    },
     "sess_1779097006915_05hmijoarzgt": {
       "user": {
         "id": "github-1",
@@ -1817,6 +1806,17 @@
       },
       "favorites": [],
       "createdAt": "2026-05-18T09:36:46.915Z"
+    },
+    "sess_1779102582324_892pxnnindd": {
+      "user": {
+        "id": "github-1",
+        "name": "Football Fan",
+        "email": "fan@github.com",
+        "provider": "github",
+        "avatar": "https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=256&q=80"
+      },
+      "favorites": [],
+      "createdAt": "2026-05-18T11:09:42.324Z"
     }
   }
 }
