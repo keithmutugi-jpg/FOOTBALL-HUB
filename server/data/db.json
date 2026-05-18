@@ -1817,6 +1817,17 @@
       },
       "favorites": [],
       "createdAt": "2026-05-18T11:09:42.324Z"
+    },
+    "sess_1779107240287_6tbtuomxaj4": {
+      "user": {
+        "id": "user-test@test.com",
+        "name": "test",
+        "email": "test@test.com",
+        "provider": "local",
+        "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=256&q=80"
+      },
+      "favorites": [],
+      "createdAt": "2026-05-18T12:27:20.287Z"
     }
   }
 }
