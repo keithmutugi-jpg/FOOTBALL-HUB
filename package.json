@@ -10,7 +10,8 @@
     "build": "vite build",
     "start": "node server/index.js",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "server": "node server/index.js"
   },
   "engines": {
     "node": "20.x"
