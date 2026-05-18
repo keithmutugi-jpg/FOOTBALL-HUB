@@ -4,7 +4,7 @@
   "version": "1.0.1",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev": "vite"
     "dev:client": "vite",
     "dev:server": "node server/index.js",
     "build": "vite build",
@@ -41,7 +41,7 @@
     "gh-pages": "^6.3.0",
     "globals": "^17.6.0",
     "jsdom": "^29.1.1",
-    "vite": "^8.0.12",
+    "vite": "^8.0.13",
     "vitest": "^4.1.6"
   }
 }
